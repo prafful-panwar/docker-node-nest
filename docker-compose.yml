@@ -1,0 +1,25 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - postgres
+    environment:
+#      DB_HOST: host.docker.internal
+      DATABASE_URL: postgres://user:password@postgres:5432/db
+      NODE_ENV: developement
+      PORT: 3000
+    ports:
+      - "8080:3000"
+  postgres:
+    image: postgres:14.0
+    ports:
+      - "35000:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+
+
